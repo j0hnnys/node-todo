@@ -33,6 +33,36 @@ angular.module('todoController', [])
 						$scope.todos = data; // assign our new list of todos
 					});
 			}
-		};
+		}
+		
+		// DELETE FUNCTION
+		$scope.deleteTodo = function(id) {
+			// Call delete method defined in todos-service.js
+			Todos.delete(id)
+				.success(function(data) {
+					console.log('Successfully deleted todo task');
+					console.log('New data: ' + data);
+					$scope.loading = false;
+					$scope.todos = data;
+				})
+				.error(function(data) {
+					console.log('Error deleting: ' + data)
+				});
+		}
+		
+		$scope.completeTodo = function(id) {
+			Todos.completeOne(id, $scope)
+				.success(function(data) {
+					console.log('Completed task');
+					$scope.loading = false;
+					$scope.formData = {}
+					$scope.todos = data;
+				})
+				.error(function(data) {
+					console.log('Error updating: ' + data);
+				});
+		}
+		
+		
 
 	}]);

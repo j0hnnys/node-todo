@@ -21,7 +21,7 @@
 
 	<!-- SPELLS -->
 	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script><!-- load angular -->
-
+	
 	<script src="js/controllers/todos-ctrl.js"></script> <!-- load up our controller -->
 	<script src="js/services/todos-service.js"></script> <!-- load our todo service -->
 	<script src="js/todos-main.js"></script> <!-- load our main application -->
@@ -42,7 +42,7 @@
 
 				<div class="checkbox"  ng-repeat="todo in todos">
                                   <label>
-                                  <input type="checkbox"> {{ todo.text }}
+                                  <span ng-if="todo.snooze">>></span><input type="checkbox" ng-click="completeTodo(todo._id)"> <span ng-if="todo.completed"><s>{{ todo.text }}</s></span> <span ng-else="!todo.completed">{{ todo.text }}</span> <button ng-click="deleteTodo(todo._id)">Delete</button> {{ todo.completed }}
                                   </label>
                                  </div>
                              

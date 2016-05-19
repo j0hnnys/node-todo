@@ -20,7 +20,8 @@ module.exports = function(app) {
 		// use mongoose to get all todos in the database
 		getTodos(res);
 	});
-
+	
+	
 	// create todo and send back all todos after creation
 	app.post('/api/todos', function(req, res) {
 
@@ -36,6 +37,41 @@ module.exports = function(app) {
 			getTodos(res);
 		});
 
+	});
+	
+	// UPDATE TASK AS COMPLETED
+	app.put('/api/todos/:todo_id', function(req, res) {
+		console.log('Updating todo task');
+		
+		Todo.update(
+			{ _id: req.params.todo_id },
+			{ $set:
+				{
+				  "completed": true
+				}
+			}
+		)
+	}, function(error, todo) {
+		if (error) { res.send(error); }
+		
+		Todo.find(function(error, todos) {
+			if (error) { res.send(error) }
+			res.json(todos);
+		});
+	});
+
+	// DELETE IMPLEMENTATION HERE
+	app.delete('/api/todos/:todo_id', function(req, res) {
+		Todo.remove({
+			_id : req.params.todo_id
+		}, function(error, todo) {
+			if (error) { res.send(error); }
+			
+			Todo.find(function(error, todos) {
+				if (error) { res.send(error) }
+				res.json(todos);
+			});
+		});
 	});
 
 	// application -------------------------------------------------------------
