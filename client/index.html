@@ -41,10 +41,12 @@
 			<div class="col-sm-4 col-sm-offset-4">
 
 				<div class="checkbox"  ng-repeat="todo in todos">
-                                  <label>
+                                  
+							<span ng-if="!todo.snooze">>></span>
+							<label>
 							<!-- Snooze >> appears if todo.snooze === true -->
 							<!-- Strikethrough text if todo.complete === true -->
-                                  <span ng-if="todo.snooze">>></span><input type="checkbox" ng-click="completeTodo(todo._id)"> <span ng-if="todo.completed"><s>{{ todo.text }}</s></span> <span ng-else="!todo.completed">{{ todo.text }}</span> <button ng-click="deleteTodo(todo._id)">Delete</button> {{ todo.completed }}
+                                  <input type="checkbox" ng-click="completeTodo(todo._id)"> <span ng-if="todo.completed"><s>{{ todo.text }}</s></span> <span ng-else="!todo.completed">{{ todo.text }}</span> <button ng-click="deleteTodo(todo._id)">Delete</button> {{ todo.completed }}
                                   </label>
                                  </div>
                              
